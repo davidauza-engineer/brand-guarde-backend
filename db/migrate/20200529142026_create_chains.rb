@@ -5,6 +5,6 @@ class CreateChains < ActiveRecord::Migration[6.0]
 
       t.timestamps
     end
+    add_index :chains, :name, unique: true
   end
-  add_index :chains, :name, unique: true
 end
