@@ -4,7 +4,7 @@ class Restaurant < ApplicationRecord
                    uniqueness: true
   validates :address, length: { maximum: 255 }
 
-  has_many :reviews
+  has_many :reviews, dependent: :destroy
   belongs_to :chain
   belongs_to :country
 end
