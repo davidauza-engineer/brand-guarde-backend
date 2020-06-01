@@ -10,4 +10,6 @@ class User < ApplicationRecord
                     uniqueness: true
 
   has_many :reviews, dependent: :destroy
+
+  has_one_attached :profile_picture
 end

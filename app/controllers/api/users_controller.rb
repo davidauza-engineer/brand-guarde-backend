@@ -3,7 +3,7 @@ class Api::UsersController < ApplicationController
 
   # GET /api/users
   def index
-    @users = User.all
+    @users = User.all.with_attached_profile_picture
 
     render json: @users
   end
@@ -26,7 +26,7 @@ class Api::UsersController < ApplicationController
 
   # PATCH/PUT /api/users/1
   def update
-    if @user.update(user_params)
+    if UpdateUserService.new(@user, user_params).call
       render json: @user
     else
       render json: @user.errors, status: :unprocessable_entity
@@ -46,6 +46,6 @@ class Api::UsersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def user_params
-      params.require(:user).permit(:name, :email, :password, :password_confirmation)
+      params.require(:user).permit(:name, :email, :password, :password_confirmation, :profile_picture)
     end
 end
